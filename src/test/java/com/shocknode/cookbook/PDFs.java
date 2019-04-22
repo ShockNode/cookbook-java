@@ -1,5 +1,6 @@
 package com.shocknode.cookbook;
 
+import com.shocknode.cookbook.pdf.PDF;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ public class PDFs {
     public static final String FILE_TRUTH_1b = "src\\test\\resources\\sample2.txt";
     public static final String FILE_PDF_1 = "src\\test\\resources\\sample1.pdf";
     public static final String FILE_PDF_2 = "src\\test\\resources\\sample2.pdf";
+    public static final String FILE_PDF_TABLES = "src\\test\\resources\\datatables.pdf";
     
     @Test
     public void lines() throws Exception {
@@ -51,6 +53,19 @@ public class PDFs {
             Assert.fail("Expected match!");
         });
 
+    }
+
+    @Test
+    public void extractTables() throws Exception {
+        
+        PDF.extractAllTables(FILE_PDF_TABLES, tables -> {
+            System.out.println(tables.size());
+        });
+
+        PDF.extractAllGuessableTables(FILE_PDF_TABLES, tables -> {
+            System.out.println(tables.size());
+        });
+        
     }
 
 

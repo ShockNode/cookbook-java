@@ -1,7 +1,8 @@
-package com.shocknode.cookbook;
+package com.shocknode.cookbook.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import technology.tabula.Table;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,6 +125,14 @@ public class PDF {
 
         }
 
+    }
+
+    public static void extractAllTables(String pathToPDF, Consumer<List<Table>> consumer) throws IOException {
+        consumer.accept(new PDFTableExtractor(PDFTableExtractor.ExtractionMethod.DECIDE, false).extractTables(pathToPDF));
+    }
+    
+    public static void extractAllGuessableTables(String pathToPDF, Consumer<List<Table>> consumer) throws IOException {
+        consumer.accept(new PDFTableExtractor(PDFTableExtractor.ExtractionMethod.DECIDE, true).extractTables(pathToPDF));
     }
 
 
