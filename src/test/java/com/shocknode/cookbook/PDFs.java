@@ -1,6 +1,5 @@
 package com.shocknode.cookbook;
 
-import com.shocknode.cookbook.pdf.PDF;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,8 +20,8 @@ public class PDFs {
         
         Arrays.asList(FILE_PDF_1, FILE_PDF_2).forEach(consumeWithException(path ->{
 
-            System.out.println("------NEW PDF-------");
-            PDF.lines(path).forEach(System.out::println);
+            System.out.println("------NEW PDFs-------");
+            com.shocknode.cookbook.pdf.PDFs.lines(path).forEach(System.out::println);
             System.out.println();
             
         }));
@@ -31,25 +30,25 @@ public class PDFs {
     @Test
     public void compareTruthToPDF() throws Exception {
         
-        Assert.assertTrue("Expected match!", PDF.compare(true, true, FILE_TRUTH_1, FILE_PDF_1));
-        Assert.assertTrue("Expected match!", PDF.compare(true, true, FILE_TRUTH_1b, FILE_PDF_1));
-        Assert.assertTrue("Expected match!", PDF.compare(false, true, FILE_TRUTH_1b, FILE_PDF_1));
-        Assert.assertFalse("Expected mismatch!", PDF.compare(false, false, FILE_TRUTH_1b, FILE_PDF_2));
+        Assert.assertTrue("Expected match!", com.shocknode.cookbook.pdf.PDFs.compare(true, true, FILE_TRUTH_1, FILE_PDF_1));
+        Assert.assertTrue("Expected match!", com.shocknode.cookbook.pdf.PDFs.compare(true, true, FILE_TRUTH_1b, FILE_PDF_1));
+        Assert.assertTrue("Expected match!", com.shocknode.cookbook.pdf.PDFs.compare(false, true, FILE_TRUTH_1b, FILE_PDF_1));
+        Assert.assertFalse("Expected mismatch!", com.shocknode.cookbook.pdf.PDFs.compare(false, false, FILE_TRUTH_1b, FILE_PDF_2));
         
     }
 
     @Test
     public void compareTruthToPDF2() throws Exception {
 
-        PDF.compareAndConsumeMismatches(true, FILE_TRUTH_1, FILE_PDF_1, (expected, actual)->{
+        com.shocknode.cookbook.pdf.PDFs.compareAndConsumeMismatches(true, FILE_TRUTH_1, FILE_PDF_1, (expected, actual)->{
             Assert.fail("Expected match!");
         });
 
-        PDF.compareAndConsumeMismatches(true, FILE_TRUTH_1b, FILE_PDF_1, (expected, actual)->{
+        com.shocknode.cookbook.pdf.PDFs.compareAndConsumeMismatches(true, FILE_TRUTH_1b, FILE_PDF_1, (expected, actual)->{
             Assert.fail("Expected match!");
         });
 
-        PDF.compareAndConsumeMismatches(false, FILE_TRUTH_1b, FILE_PDF_1, (expected, actual)->{
+        com.shocknode.cookbook.pdf.PDFs.compareAndConsumeMismatches(false, FILE_TRUTH_1b, FILE_PDF_1, (expected, actual)->{
             Assert.fail("Expected match!");
         });
 
@@ -58,11 +57,11 @@ public class PDFs {
     @Test
     public void extractTables() throws Exception {
         
-        PDF.extractAllTables(FILE_PDF_TABLES, tables -> {
+        com.shocknode.cookbook.pdf.PDFs.extractAllTables(FILE_PDF_TABLES, tables -> {
             System.out.println(tables.size());
         });
 
-        PDF.extractAllGuessableTables(FILE_PDF_TABLES, tables -> {
+        com.shocknode.cookbook.pdf.PDFs.extractAllGuessableTables(FILE_PDF_TABLES, tables -> {
             System.out.println(tables.size());
         });
         
