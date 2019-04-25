@@ -6,13 +6,17 @@ import org.apache.pdfbox.text.TextPosition;
 import java.io.IOException;
 
 public class PDFBoldTextStripper extends PDFTextStripper {
-    /**
-     * Instantiate a new PDFTextStripper object.
-     *
-     * @throws IOException If there is an error loading the properties.
-     */
+    
+    private int weight;
+    
     public PDFBoldTextStripper() throws IOException {
         super();
+        this.weight = 600;
+    }
+
+    public PDFBoldTextStripper(int weight) throws IOException {
+        super();
+        this.weight = weight;
     }
 
     
@@ -29,9 +33,13 @@ public class PDFBoldTextStripper extends PDFTextStripper {
     */
     @Override
     protected void processTextPosition(TextPosition text){
-        if(text.getFont().getFontDescriptor().getFontWeight() >= 700){
+        
+        if(text.getFont().getFontDescriptor().getFontWeight() == 0 && text.getFont().getAverageFontWidth() >= weight){
+            super.processTextPosition(text);
+        }else if(text.getFont().getFontDescriptor().getFontWeight() >= 700){
             super.processTextPosition(text);
         }
+
     }
     
 }

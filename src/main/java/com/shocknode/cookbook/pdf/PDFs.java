@@ -28,13 +28,29 @@ public class PDFs {
         pdfStripper.setStartPage(1);
         pdfStripper.setEndPage(document.getNumberOfPages());
 
-        //Load all lines into a string
         String pages = pdfStripper.getText(document)
                 .replaceAll("\\r\\n|\\r|\\n", " ")
                 .replaceAll("\\s+", " ");
 
         //Split by detecting newline
         return new ArrayList<>(Arrays.asList(pages.split(" ")));
+
+    }
+
+    public static List<String> boldTextLines(String pathToPDF) throws IOException {
+
+        File file = new File(pathToPDF);
+        PDDocument document = PDDocument.load(file);
+        PDFTextStripper pdfStripper = new PDFBoldTextStripper();
+
+        pdfStripper.setStartPage(1);
+        pdfStripper.setEndPage(document.getNumberOfPages());
+
+        //Load all lines into a string
+        String pages = pdfStripper.getText(document);
+
+        //Split by detecting newline
+        return new ArrayList<>(Arrays.asList(pages.split("\r\n|\r|\n")));
 
     }
 
